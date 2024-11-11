@@ -1,14 +1,15 @@
 import { getHours, getWeekDays } from "@/lib/getTime";
-import { useDateStore } from "@/lib/store";
+import { useDateStore, useEventStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 
 
 export default function WeekView() {
     const [currentTime, setCurrentTime] = useState(dayjs());
-
+    
+    const { openPopover, events } = useEventStore();
     const { userSelectedDate, setDate } = useDateStore();
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function WeekView() {
             <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2">
                 <div className="w-16 border-r border-gray-300">
                     <div className="relative h-16">
-                        <div className="absolute top-2 text-xs text-gray-600">GMT +2</div>
+                        <div className="absolute top-2 text-xs text-gray-600">GMT +3</div>
                     </div>
                 </div>
 
@@ -31,7 +32,7 @@ export default function WeekView() {
 
                 {getWeekDays(userSelectedDate).map(({ currentDate, today }, index) => (
                     <div key={index} className="flex flex-col items-center">
-                        <div className={cn("text-xs", today && "text-blue-600")}>
+                        <div className={cn("text-xs font-semibold", today && "text-blue-600 font-semibold")}>
                             {currentDate.format("dd").toLocaleUpperCase()}
                         </div>
                         <div
@@ -75,7 +76,10 @@ export default function WeekView() {
                                         <div
                                             key={i}
                                             className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 hover:bg-gray-100"
-                                            onClick={() => console.log("Hour is: ", hour, "Day is: ", dayDate)}
+                                            onClick={() => {
+                                                setDate(dayDate.hour(hour.hour()));
+                                                openPopover();
+                                            }}
                                         >
                                         </div>
                                     ))}
