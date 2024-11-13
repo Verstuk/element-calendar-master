@@ -6,6 +6,7 @@ import SideBar from "./sidebar/SideBar";
 import WeekView from "./week-view";
 import DayView from "./day-view";
 import EventPopover from "./event-popover";
+import { EventSummaryPopover } from "./event-summary-popover";
 
 export default function MainView() {
 
@@ -38,6 +39,14 @@ export default function MainView() {
       onClose={closePopover}
       date={userSelectedDate.format("YYYY-MM-DD")}
     />
+      )}
+
+      {isEventSummaryOpen && selectedEvent && (
+        <EventSummaryPopover
+          isOpen={isEventSummaryOpen}
+          onClose={closeEventSummary}
+          event={selectedEvent}
+        />
       )}
     </div>
   );

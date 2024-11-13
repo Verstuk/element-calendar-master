@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import { getHours, isCurrentDay } from "@/lib/getTime";
+import { EventRenderer } from "./events-renderer";
+import { dayEvents } from "@/lib/data";
 
 
 export default function DayView() {
@@ -65,6 +67,7 @@ export default function DayView() {
                                     openPopover();
                                   }}
                             >
+                                <EventRenderer events={dayEvents} date={userSelectedDate.hour(hour.hour())} view="day" />
                             </div>
                         ))}
 

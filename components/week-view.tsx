@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import React, { use, useEffect, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
+import { EventRenderer } from "./events-renderer";
+import { weekEvents } from "@/lib/data";
 
 
 export default function WeekView() {
@@ -81,6 +83,8 @@ export default function WeekView() {
                                                 openPopover();
                                             }}
                                         >
+                                            <EventRenderer
+                                                events={weekEvents} date={dayDate.hour(hour.hour())} view="week" />
                                         </div>
                                     ))}
                                     {/* Current time indicator */}
@@ -98,6 +102,7 @@ export default function WeekView() {
                         },
                     )}
                 </div>
+                
             </ScrollArea>
         </>
     );

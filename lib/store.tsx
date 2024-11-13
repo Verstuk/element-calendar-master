@@ -79,4 +79,18 @@ export const useEventStore = create<EventStore>((set) => ({
     closePopover: () => set({ isPopoverOpen: false }),
     openEventSummary: (event) => set({ isEventSummaryOpen: true, selectedEvent: event }),
     closeEventSummary: () => set({ isEventSummaryOpen: false, selectedEvent: null }), 
-}))
+}));
+
+interface ToggleSideBarType {
+    isSideBarOpen: boolean;
+    setSideBarOpen: () => void;
+  }
+
+  export const useToggleSideBarStore = create<ToggleSideBarType>()(
+    (set, get) => ({
+      isSideBarOpen: true,
+      setSideBarOpen: () => {
+        set({ isSideBarOpen: !get().isSideBarOpen });
+      },
+    }),
+  );

@@ -4,12 +4,14 @@ import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { useDateStore, useViewStore } from "@/lib/store";
+import { useDateStore, useToggleSideBarStore, useViewStore } from "@/lib/store";
 import dayjs from "dayjs";
 
 export default function LeftHeader() {
   const todaysDate = dayjs();
   const { userSelectedDate, setDate, setMonth, selectedMonthIndex } = useDateStore();
+  
+  const { setSideBarOpen } = useToggleSideBarStore();
 
   const { selectedView } = useViewStore();
 
@@ -66,7 +68,7 @@ export default function LeftHeader() {
     <div className="flex items-center gap-3">
       {/* Sidebar Toggle and Calendar Icon */}
       <div className="hidden items-center lg:flex">
-        <Button variant="ghost" className="rounded-full p-2">
+        <Button variant="ghost" className="rounded-full p-2" onClick={() => setSideBarOpen()}>
           <Menu className="size-6" />
         </Button>
         <Image src="/img/logo_quanta.png" width={140} height={60} alt="icon" />
