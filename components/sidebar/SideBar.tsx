@@ -9,7 +9,7 @@ export default function SideBar() {
     const { isSideBarOpen } = useToggleSideBarStore();
 
     return (
-        <aside className={cn("hidden w-92 transition-all duration-300 ease-in-out lg:block p-6",
+        <aside className={cn("hidden w-92 transition-all duration-300 ease-in-out lg:block p-4",
             isSideBarOpen && "lg:hidden"
         )}>
 
